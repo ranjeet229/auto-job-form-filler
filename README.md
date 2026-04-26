@@ -1,6 +1,6 @@
 # Auto Job Form Filler
 
-**Download the extension (ZIP):** [Autofillform.zip — Google Drive](https://drive.google.com/file/d/1BQsdIUxc0UzrGYUIEL-OZJthxV0hG40Z/view?usp=sharing) — extract the archive, then in Chrome open `chrome://extensions` → **Developer mode** → **Load unpacked** and select the folder that contains `manifest.json`.
+**Download the extension (ZIP):** [Autofillform.zip — Google Drive](https://drive.google.com/file/d/1kG6s84ypXgAd1ckuQYFq2RrZUM3sJoH0/view?usp=sharing) — extract the archive, then in Chrome open `chrome://extensions` → **Developer mode** → **Load unpacked** and select the folder that contains `manifest.json`.
 
 ---
 
