@@ -19,21 +19,111 @@
       get: (p) => p.fullName,
       terms: ["full name", "your name", "applicant name", "name", "legal name", "print name"],
     },
-    { key: "email", get: (p) => p.email, terms: ["e-mail", "email", "mail", "电邮"] },
-    { key: "phone", get: (p) => p.phone, terms: ["phone", "mobile", "cell", "tel", "电话"] },
+    { key: "email", get: (p) => p.email, terms: ["e-mail", "email", "email id", "e mail id", "mail id", "电邮"] },
+    {
+      key: "phone",
+      get: (p) => p.phone,
+      terms: ["phone", "phone number", "contact no", "contact number", "contact #", "mobile", "cell", "cellphone", "whatsapp", "whats app", "tel", "telephone", "msisdn", "电话"],
+    },
     { key: "city", get: (p) => p.city, terms: ["city", "town", "municipality"] },
     { key: "state", get: (p) => p.state, terms: ["state", "province", "region", "州", "省"] },
     { key: "country", get: (p) => p.country, terms: ["country", "nation"] },
     { key: "pincode", get: (p) => p.pincode, terms: ["zip", "postal", "post code", "pin", "postcode", "郵遞"] },
     { key: "address", get: (p) => p.address, terms: ["street", "address line", "line 1", "郵政"] },
-    { key: "currentLocation", get: (p) => p.currentLocation, terms: ["location", "based in", "based out", "current city"] },
-    { key: "collegeName", get: (p) => p.collegeName, terms: ["university", "college", "school", "institut", "education"] },
-    { key: "degree", get: (p) => p.degree, terms: ["degree", "qualification", "program"] },
+    {
+      key: "currentLocation",
+      get: (p) => p.currentLocation,
+      terms: [
+        "current location",
+        "location",
+        "where are you based",
+        "where do you live",
+        "residing at",
+        " based in",
+        "based in",
+        "based out of",
+        "base location",
+        "current city",
+        "present address",
+        "residence",
+      ],
+    },
+    {
+      key: "collegeName",
+      get: (p) => p.collegeName,
+      terms: [
+        "campus",
+        "alma mater",
+        "university",
+        "college",
+        "university name",
+        "college name",
+        "institute",
+        "institut",
+        "school",
+        "ug college",
+        "education",
+      ],
+    },
+    { key: "degree", get: (p) => p.degree, terms: ["degree", "qualification", "program", "b.tech", "btech", "b e", "bachelor", "masters", "m.tech"] },
+    { key: "cgpa", get: (p) => p.cgpa, terms: ["cgpa", "c g p a", "cgp", "gpa", "grade point", "cpi", "sgpa", "cumulative gpa", "g p a", "academic score"] },
     { key: "branch", get: (p) => p.branch, terms: ["branch", "stream", "major", "field of study", "concentrat"] },
     { key: "graduationYear", get: (p) => p.graduationYear, terms: ["graduat", "year of completion", "class of", "batch"] },
-    { key: "skills", get: (p) => p.skills, terms: ["skill", "technologies", "expertise", "stack"] },
-    { key: "experience", get: (p) => p.experience, terms: ["experience", "yoe", "years of exp", "total exp"] },
-    { key: "currentCompany", get: (p) => p.currentCompany, terms: ["current employer", "company", "employer", "where do you work"] },
+    { key: "skills", get: (p) => p.skills, terms: ["skill", "technologies", "expertise", "stack", "tech stack", "competenc"] },
+    {
+      key: "internshipExperience",
+      get: (p) => p.internshipExperience,
+      terms: [
+        "internship",
+        "intern exp",
+        "intern experience",
+        "past internship",
+        "current or past internship",
+        "internship at",
+        "summer intern",
+        "stipend",
+        "industrial training",
+      ],
+    },
+    {
+      key: "experience",
+      get: (p) => p.experience,
+      terms: [
+        "experience",
+        "yoe",
+        "years of exp",
+        "total exp",
+        "total experience",
+        "work experience",
+        "years experience",
+        "how many years",
+        "professional experience",
+        "relevant experience",
+        "yrs of exp",
+        "yrs experience",
+      ],
+    },
+    { key: "whatYouBuilt", get: (p) => p.whatYouBuilt, terms: ["what you have built", "what you built", "what have you built", "what did you build", "things you built", "notable build", "projects you", "work sample", "describe a project", "proud of building"] },
+    {
+      key: "currentCompany",
+      get: (p) => p.currentCompany,
+      terms: [
+        "current company",
+        "present company",
+        "current org",
+        "current organisation",
+        "current organization",
+        "current employer",
+        "employer",
+        "company",
+        "company name",
+        "where do you work",
+        "where are you working",
+        "name of company",
+        "org name",
+        "comapny",
+      ],
+    },
     { key: "github", get: (p) => p.github, terms: ["github", "git"] },
     { key: "linkedin", get: (p) => p.linkedin, terms: ["linkedin", "linked in"] },
     { key: "portfolio", get: (p) => p.portfolio, terms: ["portfolio", "website", "personal site", "url"] },
@@ -103,6 +193,25 @@
     for (let d = 0; d < 3 && n; d++) {
       n = n.previousElementSibling;
       if (n && n.tagName === "LABEL") add(n.textContent);
+    }
+    n = el;
+    const sibTags = { LABEL: 1, SPAN: 1, DIV: 1, P: 1, H1: 1, H2: 1, H3: 1, H4: 1, H5: 1, LEGEND: 1, TD: 1, TH: 1, LI: 1 };
+    for (let d = 0; d < 12 && n; d++) {
+      n = n.previousElementSibling;
+      if (!n || !n.tagName) continue;
+      const tg = n.tagName;
+      if (sibTags[tg] || n.getAttribute("role") === "heading" || n.className) {
+        const t = n.textContent && n.textContent.trim();
+        if (t) add(t.length > 400 ? t.slice(0, 400) : t);
+      }
+    }
+    w = el;
+    for (let d = 0; d < 4 && w; d++) {
+      w = w.parentElement;
+      if (w && w.getAttribute) {
+        const g = w.getAttribute("data-params") || w.getAttribute("data-question");
+        if (g) add(g);
+      }
     }
     return parts.join(" | ");
   }

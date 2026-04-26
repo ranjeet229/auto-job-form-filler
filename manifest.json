@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Auto Job Form Filler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Save your profile once and auto-fill job applications with one click. Multiple profiles, smart field matching, and resume upload.",
   "icons": {
     "16": "icons/icon16.png",

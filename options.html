@@ -390,7 +390,7 @@
                 <input class="input" type="email" id="email" autocomplete="email" />
               </div>
               <div class="field">
-                <label for="phone">Phone number</label>
+                <label for="phone">Phone / contact number</label>
                 <input class="input" type="tel" id="phone" autocomplete="tel" />
               </div>
             </div>
@@ -431,7 +431,7 @@
           <div class="card section">
             <h3>Education</h3>
             <div class="field full">
-              <label for="collegeName">College / University</label>
+              <label for="collegeName">College / University (same as &quot;Campus&quot; on most forms)</label>
               <input class="input" type="text" id="collegeName" />
             </div>
             <div class="row two">
@@ -448,6 +448,10 @@
               <label for="graduationYear">Graduation year</label>
               <input class="input" type="text" id="graduationYear" inputmode="numeric" />
             </div>
+            <div class="field">
+              <label for="cgpa">CGPA / GPA (or %)</label>
+              <input class="input" type="text" id="cgpa" inputmode="decimal" placeholder="e.g. 8.5 or 7.2/10" />
+            </div>
           </div>
 
           <div class="card section">
@@ -458,13 +462,21 @@
             </div>
             <div class="row two">
               <div class="field">
-                <label for="experience">Experience (summary)</label>
+                <label for="experience">Experience (summary / years)</label>
                 <input class="input" type="text" id="experience" />
               </div>
               <div class="field">
                 <label for="currentCompany">Current company</label>
                 <input class="input" type="text" id="currentCompany" />
               </div>
+            </div>
+            <div class="field full">
+              <label for="internshipExperience">Internship experience (product / service, etc.)</label>
+              <textarea class="input textarea" id="internshipExperience" rows="2" placeholder="Current or past internships, one line or short paragraph"></textarea>
+            </div>
+            <div class="field full">
+              <label for="whatYouBuilt">What you have built (projects, products)</label>
+              <textarea class="input textarea" id="whatYouBuilt" rows="3" placeholder="Notable work, products, or projects for open-ended &quot;what have you built?&quot; questions"></textarea>
             </div>
             <div class="row two">
               <div class="field">
