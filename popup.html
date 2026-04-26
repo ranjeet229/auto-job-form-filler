@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auto Job Form Filler</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="head">
+        <div>
+          <h1>Job Form Filler</h1>
+          <p class="sub">Active profile and quick fill</p>
+        </div>
+      </header>
+
+      <div class="card">
+        <label for="selProfile" class="lbl">Profile</label>
+        <select id="selProfile" class="input"></select>
+        <p class="hint" id="profileNameHint"></p>
+      </div>
+
+      <div class="card row-checks">
+        <label class="check">
+          <input type="checkbox" id="autoFill" />
+          <span>Auto-fill on page load</span>
+        </label>
+        <label class="check">
+          <input type="checkbox" id="floatBtn" />
+          <span>Show floating fill button</span>
+        </label>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn primary" id="btnFill" title="Fill the current tab">Fill this page</button>
+        <button type="button" class="btn" id="btnOptions" title="Open full settings">Settings</button>
+      </div>
+      <p class="msg" id="msg" role="status"></p>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>

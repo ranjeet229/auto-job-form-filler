@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auto Job Form Filler — Settings</title>
+    <style>
+      :root {
+        --bg: #0b0f1a;
+        --bg-elevated: #111827;
+        --border: #1e293b;
+        --text: #e2e8f0;
+        --text-muted: #94a3b8;
+        --accent: #818cf8;
+        --accent-strong: #6366f1;
+        --card-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+        --radius: 12px;
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f4f4f5;
+          --bg-elevated: #ffffff;
+          --border: #e4e4e7;
+          --text: #18181b;
+          --text-muted: #52525b;
+          --card-shadow: 0 4px 24px rgba(15, 23, 42, 0.08);
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.5;
+      }
+      .app {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 24px 20px 80px;
+      }
+      .header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+      .brand {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+      .tagline {
+        margin: 4px 0 0;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+      h2 {
+        margin: 0 0 4px;
+        font-size: 1.15rem;
+        font-weight: 600;
+      }
+      h3 {
+        margin: 0 0 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text-muted);
+      }
+      .panel-header p {
+        margin: 0 0 20px;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 24px;
+        padding: 4px;
+        background: var(--bg-elevated);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+      }
+      .tab {
+        flex: 1 1 120px;
+        padding: 10px 14px;
+        border: none;
+        background: transparent;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        font-weight: 500;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.15s, color 0.15s;
+      }
+      .tab:hover {
+        color: var(--text);
+        background: rgba(99, 102, 241, 0.1);
+      }
+      .tab.active {
+        color: var(--text);
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.25) 0%, rgba(139, 92, 246, 0.2) 100%);
+        box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.3);
+      }
+      .panel {
+        display: none;
+      }
+      .panel.active {
+        display: block;
+      }
+      .card {
+        background: var(--bg-elevated);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        margin-bottom: 16px;
+        box-shadow: var(--card-shadow);
+      }
+      .card.section h3 {
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 8px;
+        margin-bottom: 16px;
+      }
+      .card.highlight {
+        border-color: rgba(99, 102, 241, 0.4);
+        background: linear-gradient(180deg, rgba(99, 102, 241, 0.06) 0%, var(--bg-elevated) 40%);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      @media (min-width: 700px) {
+        .row.two {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px 16px;
+        }
+        .row.two .field {
+          margin-bottom: 0;
+        }
+        .row.two {
+          margin-bottom: 0;
+        }
+        .row.two + .field,
+        .row.two + .row {
+          margin-top: 12px;
+        }
+      }
+      .field {
+        margin-bottom: 12px;
+      }
+      .field.full {
+        width: 100%;
+      }
+      label {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: 500;
+        margin-bottom: 4px;
+        color: var(--text-muted);
+      }
+      .input {
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 0.95rem;
+        color: var(--text);
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        outline: none;
+        transition: border-color 0.15s, box-shadow 0.15s;
+      }
+      .input:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+      }
+      .textarea {
+        min-height: 88px;
+        resize: vertical;
+      }
+      .hint {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin: 6px 0 0;
+      }
+      .hint code {
+        background: var(--bg);
+        padding: 1px 6px;
+        border-radius: 4px;
+        font-size: 0.85em;
+      }
+      .profile-bar .row,
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+      }
+      #activeProfile {
+        flex: 1 1 200px;
+        min-width: 0;
+      }
+      .file-meta {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+      .check-row {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        margin-bottom: 12px;
+        font-size: 0.9rem;
+        color: var(--text);
+        cursor: pointer;
+      }
+      .check-row:last-child {
+        margin-bottom: 0;
+      }
+      .check-row input {
+        margin-top: 3px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 16px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        background: linear-gradient(135deg, var(--accent-strong) 0%, #7c3aed 100%);
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+        transition: transform 0.12s, box-shadow 0.12s;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(99, 102, 241, 0.45);
+      }
+      .btn-primary {
+        min-width: 120px;
+      }
+      .btn-secondary {
+        background: var(--bg);
+        color: var(--text);
+        border: 1px solid var(--border);
+        box-shadow: none;
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--accent);
+        box-shadow: none;
+        border: 1px dashed var(--border);
+      }
+      .btn-ghost:hover {
+        background: rgba(99, 102, 241, 0.08);
+      }
+      .file-input::file-selector-button {
+        margin-right: 10px;
+        padding: 8px 12px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: var(--bg-elevated);
+        color: var(--text);
+        font-size: 0.85rem;
+        cursor: pointer;
+      }
+      .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 12px 20px;
+        background: color-mix(in srgb, var(--bg) 90%, transparent);
+        backdrop-filter: blur(8px);
+        border-top: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        z-index: 10;
+      }
+      .footer .hint {
+        margin: 0;
+        color: #f87171;
+        font-size: 0.85rem;
+      }
+      .save-success-alert {
+        position: fixed;
+        top: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10000;
+        max-width: min(420px, calc(100% - 32px));
+        padding: 12px 20px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #f0fdf4;
+        background: #16a34a;
+        border: 1px solid #22c55e;
+        border-radius: 10px;
+        box-shadow: 0 8px 24px rgba(22, 163, 74, 0.45);
+        text-align: center;
+        animation: ajf-fade 0.3s ease;
+      }
+      .save-success-alert[hidden] {
+        display: none;
+      }
+      @keyframes ajf-fade {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      #saveError:empty {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="saveSuccessAlert" class="save-success-alert" role="alert" aria-live="polite" hidden>All changes saved</div>
+    <div class="app">
+      <header class="header">
+        <div class="brand">
+          <div>
+            <h1>Auto Job Form Filler</h1>
+            <p class="tagline">Save your profile once — fill every application faster.</p>
+          </div>
+        </div>
+      </header>
+
+      <nav class="tabs" role="tablist" aria-label="Settings sections">
+        <button type="button" class="tab active" data-tab="profile" role="tab" aria-selected="true">Profile</button>
+        <button type="button" class="tab" data-tab="control" role="tab" aria-selected="false">Controls</button>
+        <button type="button" class="tab" data-tab="data" role="tab" aria-selected="false">Import / Export</button>
+      </nav>
+
+      <!-- Profile -->
+      <section id="panel-profile" class="panel active" role="tabpanel" aria-label="Profile">
+        <div class="panel-header">
+          <h2>Profiles</h2>
+          <p>Switch or manage multiple saved identities (e.g. Fresher vs Experienced).</p>
+        </div>
+        <div class="profile-bar card">
+          <div class="field full">
+            <label for="activeProfile">Active profile</label>
+            <div class="row">
+              <select id="activeProfile" class="input"></select>
+              <button type="button" class="btn btn-secondary" id="btnRenameProfile" title="Rename this profile">Rename</button>
+              <button type="button" class="btn btn-ghost" id="btnAddProfile" title="Add a new profile">+ New profile</button>
+            </div>
+            <p class="hint" id="profileIdHint"></p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card section">
+            <h3>Identity</h3>
+            <div class="field full">
+              <label for="fullName">Full name</label>
+              <input class="input" type="text" id="fullName" autocomplete="name" />
+            </div>
+            <div class="row two">
+              <div class="field">
+                <label for="firstName">First name</label>
+                <input class="input" type="text" id="firstName" autocomplete="given-name" />
+              </div>
+              <div class="field">
+                <label for="lastName">Last name</label>
+                <input class="input" type="text" id="lastName" autocomplete="family-name" />
+              </div>
+            </div>
+            <div class="row two">
+              <div class="field">
+                <label for="email">Email</label>
+                <input class="input" type="email" id="email" autocomplete="email" />
+              </div>
+              <div class="field">
+                <label for="phone">Phone number</label>
+                <input class="input" type="tel" id="phone" autocomplete="tel" />
+              </div>
+            </div>
+          </div>
+
+          <div class="card section">
+            <h3>Location</h3>
+            <div class="field full">
+              <label for="currentLocation">Current location (short)</label>
+              <input class="input" type="text" id="currentLocation" />
+            </div>
+            <div class="field full">
+              <label for="address">Address</label>
+              <input class="input" type="text" id="address" autocomplete="street-address" />
+            </div>
+            <div class="row two">
+              <div class="field">
+                <label for="city">City</label>
+                <input class="input" type="text" id="city" autocomplete="address-level2" />
+              </div>
+              <div class="field">
+                <label for="state">State / Region</label>
+                <input class="input" type="text" id="state" autocomplete="address-level1" />
+              </div>
+            </div>
+            <div class="row two">
+              <div class="field">
+                <label for="country">Country</label>
+                <input class="input" type="text" id="country" autocomplete="country" />
+              </div>
+              <div class="field">
+                <label for="pincode">Pin / ZIP code</label>
+                <input class="input" type="text" id="pincode" />
+              </div>
+            </div>
+          </div>
+
+          <div class="card section">
+            <h3>Education</h3>
+            <div class="field full">
+              <label for="collegeName">College / University</label>
+              <input class="input" type="text" id="collegeName" />
+            </div>
+            <div class="row two">
+              <div class="field">
+                <label for="degree">Degree</label>
+                <input class="input" type="text" id="degree" />
+              </div>
+              <div class="field">
+                <label for="branch">Branch / Stream</label>
+                <input class="input" type="text" id="branch" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="graduationYear">Graduation year</label>
+              <input class="input" type="text" id="graduationYear" inputmode="numeric" />
+            </div>
+          </div>
+
+          <div class="card section">
+            <h3>Work</h3>
+            <div class="field full">
+              <label for="skills">Skills (comma or newline)</label>
+              <textarea class="input textarea" id="skills" rows="3"></textarea>
+            </div>
+            <div class="row two">
+              <div class="field">
+                <label for="experience">Experience (summary)</label>
+                <input class="input" type="text" id="experience" />
+              </div>
+              <div class="field">
+                <label for="currentCompany">Current company</label>
+                <input class="input" type="text" id="currentCompany" />
+              </div>
+            </div>
+            <div class="row two">
+              <div class="field">
+                <label for="noticePeriod">Notice period</label>
+                <input class="input" type="text" id="noticePeriod" />
+              </div>
+              <div class="field">
+                <label for="expectedSalary">Expected salary</label>
+                <input class="input" type="text" id="expectedSalary" />
+              </div>
+            </div>
+            <div class="field full">
+              <label for="workAuthorization">Work authorization / visa status</label>
+              <input class="input" type="text" id="workAuthorization" />
+            </div>
+          </div>
+
+          <div class="card section">
+            <h3>Links</h3>
+            <div class="field full">
+              <label for="github">GitHub</label>
+              <input class="input" type="url" id="github" placeholder="https://github.com/…" />
+            </div>
+            <div class="field full">
+              <label for="linkedin">LinkedIn</label>
+              <input class="input" type="url" id="linkedin" placeholder="https://www.linkedin.com/in/…" />
+            </div>
+            <div class="field full">
+              <label for="portfolio">Portfolio</label>
+              <input class="input" type="url" id="portfolio" />
+            </div>
+            <div class="row two">
+              <div class="field">
+                <label for="leetcode">LeetCode</label>
+                <input class="input" type="url" id="leetcode" />
+              </div>
+              <div class="field">
+                <label for="hackerrank">HackerRank</label>
+                <input class="input" type="url" id="hackerrank" />
+              </div>
+            </div>
+          </div>
+
+          <div class="card section highlight">
+            <h3>Resume (PDF)</h3>
+            <p class="hint">Stored in this browser only. Large files may be rejected by Chrome storage limits; keep PDFs under ~2 MB for reliability.</p>
+            <div class="field full">
+              <input type="file" id="resumeFile" accept=".pdf,application/pdf" class="file-input" />
+            </div>
+            <p class="file-meta" id="resumeMeta">No file saved for this profile.</p>
+            <div class="row">
+              <button type="button" class="btn btn-ghost" id="btnClearResume">Remove saved resume</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Controls -->
+      <section id="panel-control" class="panel" role="tabpanel" hidden aria-label="Controls">
+        <div class="panel-header">
+          <h2>Behavior</h2>
+          <p>Control when the extension runs and on which sites.</p>
+        </div>
+        <div class="card">
+          <label class="check-row">
+            <input type="checkbox" id="autoFillOnLoad" />
+            <span>Auto-fill when a page loads (if not blacklisted). Manual fill is always available via the floating button or popup.</span>
+          </label>
+          <label class="check-row">
+            <input type="checkbox" id="showFloatingButton" />
+            <span>Show the floating <strong>Fill Job Form</strong> button on pages</span>
+          </label>
+        </div>
+        <div class="card">
+          <h3>Domain blacklist</h3>
+          <p class="hint">The extension will not run on these sites (one domain or path fragment per line, e.g. <code>bank.example.com</code> or <code>localhost</code>).</p>
+          <textarea class="input textarea" id="domainBlacklist" rows="5" placeholder="e.g.&#10;mail.google.com&#10;github.com"></textarea>
+        </div>
+      </section>
+
+      <!-- Import Export -->
+      <section id="panel-data" class="panel" role="tabpanel" hidden aria-label="Import and export">
+        <div class="panel-header">
+          <h2>Backup your data</h2>
+          <p>Export everything as JSON. Import merges by replacing matching profile IDs, or you can import into a new browser.</p>
+        </div>
+        <div class="card">
+          <div class="row">
+            <button type="button" class="btn" id="btnExport">Export JSON</button>
+            <label class="btn btn-secondary" style="cursor: pointer"> Import JSON <input type="file" id="importFile" accept="application/json,.json" hidden /> </label>
+          </div>
+          <p class="hint" id="importResult"></p>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <button type="button" class="btn btn-primary" id="btnSave">Save all</button>
+        <span class="hint" id="saveError" role="alert"></span>
+      </footer>
+    </div>
+    <script src="options.js"></script>
+  </body>
+</html>
