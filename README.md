@@ -1,5 +1,9 @@
 # Auto Job Form Filler
 
+**Download the extension (ZIP):** [Autofillform.zip — Google Drive](https://drive.google.com/file/d/1BQsdIUxc0UzrGYUIEL-OZJthxV0hG40Z/view?usp=sharing) — extract the archive, then in Chrome open `chrome://extensions` → **Developer mode** → **Load unpacked** and select the folder that contains `manifest.json`.
+
+---
+
 A **Chrome extension** (Manifest V3) that stores your job-application details once, then **fills online application forms** for you. It matches fields using labels, names, and nearby text—so you spend less time copy-pasting the same name, email, and resume links on every company site.
 
 ---
